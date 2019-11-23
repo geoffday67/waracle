@@ -32,6 +32,7 @@ class CakesPresenter @Inject constructor(
                 .subscribeBy(
                     onSuccess = { view.showCakes(it) },
                     onError = { view.showError(it) })
+        // TODO Allow for retry if there's a network error
         )
     }
 
