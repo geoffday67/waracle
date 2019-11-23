@@ -14,11 +14,17 @@ class CakesPresenter @Inject constructor(
 ) : BasePresenter() {
     lateinit var view: View
 
+    fun start() {
+        view.showRefreshing(true)
+        refreshCakes()
+    }
+
     fun refreshCakes() {
         add(
             dataRepository.getCakes()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doAfterTerminate { view.showRefreshing(false) }
                 .subscribeBy(
                     onSuccess = { view.showCakes(it) },
                     onError = { view.showError(it) })
@@ -26,6 +32,7 @@ class CakesPresenter @Inject constructor(
     }
 
     interface View : BaseView {
+        fun showRefreshing(show: Boolean)
         fun showCakes(cakes: List<CakeEntry>)
     }
 }

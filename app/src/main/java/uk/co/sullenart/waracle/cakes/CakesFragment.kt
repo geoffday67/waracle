@@ -33,7 +33,9 @@ class CakesFragment : BaseFragment(), CakesPresenter.View {
 
         cakes_list.addItemDecoration(DividerItemDecoration(safeContext, DividerItemDecoration.VERTICAL))
         cakes_list.adapter = cakesAdapter
-        presenter.refreshCakes()
+        cakes_refresh.setOnRefreshListener { presenter.refreshCakes() }
+        
+        presenter.start()
     }
 
     override fun onDestroy() {
@@ -44,5 +46,9 @@ class CakesFragment : BaseFragment(), CakesPresenter.View {
 
     override fun showCakes(cakes: List<CakeEntry>) {
         cakesAdapter.setEntries(cakes)
+    }
+
+    override fun showRefreshing(show: Boolean) {
+        cakes_refresh.isRefreshing = show
     }
 }
