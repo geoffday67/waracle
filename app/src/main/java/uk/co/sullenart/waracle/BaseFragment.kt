@@ -20,6 +20,7 @@ open class BaseFragment : BaseView, Fragment() {
     }
 
     override fun showError(t: Throwable) {
+        // TODO Show error in a more helpful way, add to analytics/logging
         Toast.makeText(safeContext, t.message, LENGTH_LONG).show()
     }
 }
