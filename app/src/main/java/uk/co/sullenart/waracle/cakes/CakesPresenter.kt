@@ -25,6 +25,9 @@ class CakesPresenter @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doAfterTerminate { view.showRefreshing(false) }
+                .flattenAsFlowable { it }
+                .distinct { it.title }
+                .toSortedList { c1, c2 -> c1.title.compareTo(c2.title) }
                 .subscribeBy(
                     onSuccess = { view.showCakes(it) },
                     onError = { view.showError(it) })
