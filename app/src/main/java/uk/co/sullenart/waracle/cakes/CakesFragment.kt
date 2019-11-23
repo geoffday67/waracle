@@ -54,10 +54,10 @@ class CakesFragment : BaseFragment(), CakesPresenter.View {
         cakes_refresh.isRefreshing = show
     }
 
-    override fun showDescription(description: String) {
+    override fun showDescription(cake: CakeEntry) {
         AlertDialog.Builder(safeContext)
-            .setTitle(R.string.description)
-            .setMessage(description)
+            .setTitle(cake.title)
+            .setMessage(cake.desc)
             .setPositiveButton(android.R.string.ok, null)
             .create()
             .show()

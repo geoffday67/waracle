@@ -36,12 +36,12 @@ class CakesPresenter @Inject constructor(
     }
 
     fun onCakeClicked(cake: CakeEntry) {
-        view.showDescription(cake.desc)
+        view.showDescription(cake)
     }
 
     interface View : BaseView {
         fun showRefreshing(show: Boolean)
         fun showCakes(cakes: List<CakeEntry>)
-        fun showDescription(description: String)
+        fun showDescription(cake: CakeEntry)
     }
 }
