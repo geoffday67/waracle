@@ -5,13 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.GlideBuilder
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.cake_item.view.*
 import uk.co.sullenart.waracle.CakeEntry
 import uk.co.sullenart.waracle.R
 
-class CakesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CakesAdapter(
+    private val listener: (CakeEntry) -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val entries = mutableListOf<CakeEntry>()
 
@@ -19,12 +20,14 @@ class CakesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         RecyclerView.ViewHolder(containerView),
         LayoutContainer {
 
-        fun bind(entry: CakeEntry) {
+        fun bind(entry: CakeEntry, listener: (CakeEntry) -> Unit) {
             containerView.cake_title.text = entry.title
 
             Glide.with(containerView)
                 .load(entry.image)
                 .into(containerView.cake_image)
+
+            containerView.setOnClickListener { listener(entry) }
         }
     }
 
@@ -40,7 +43,7 @@ class CakesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount(): Int = entries.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as CakeViewHolder).bind(entries[position])
+        (holder as CakeViewHolder).bind(entries[position], listener)
     }
 
     fun setEntries(incoming: List<CakeEntry>) {

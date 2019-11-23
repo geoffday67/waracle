@@ -3,6 +3,7 @@ package uk.co.sullenart.waracle.cakes
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 import uk.co.sullenart.waracle.BasePresenter
 import uk.co.sullenart.waracle.BaseView
 import uk.co.sullenart.waracle.CakeEntry
@@ -34,8 +35,13 @@ class CakesPresenter @Inject constructor(
         )
     }
 
+    fun onCakeClicked(cake: CakeEntry) {
+        view.showDescription(cake.desc)
+    }
+
     interface View : BaseView {
         fun showRefreshing(show: Boolean)
         fun showCakes(cakes: List<CakeEntry>)
+        fun showDescription(description: String)
     }
 }
