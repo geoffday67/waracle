@@ -47,6 +47,7 @@ class CakesFragment : BaseFragment(), CakesPresenter.View {
 
     override fun showCakes(cakes: List<CakeEntry>) {
         cakesAdapter.setEntries(cakes)
+        cakes_list.scheduleLayoutAnimation()
     }
 
     override fun showRefreshing(show: Boolean) {
