@@ -27,6 +27,6 @@ class MainApplication : Application() {
 @GlideModule
 class CustomAppGlideModule: AppGlideModule() {
     override fun applyOptions(context: Context, builder: GlideBuilder) {
-        builder.setLogLevel(Log.DEBUG)
+        builder.setLogLevel(Log.WARN)
     }
 }
